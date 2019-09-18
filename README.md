@@ -8,7 +8,7 @@
 1. Scroll down in **predict.js** and examine the block of code that begins on line 29. This is the code that calls out to the Custom Vision Service using AJAX. Using the Custom Vision Prediction API is as simple as making an authenticated POST to a REST endpoint.
 
 	```javascript
- $.ajax({
+        $.ajax({
             type: "POST",
             url: url,
             data: imageBytes,
