@@ -1,7 +1,7 @@
 $(function () {
 
-    var url = "https://southeastasia.api.cognitive.microsoft.com/customvision/v3.0/Prediction/fd6cd228-87be-4c7e-b1ac-8ae43ba5f222/classify/iterations/Iteration1/image";
-    var predictionKey = "346e1c74d3f6448aabec2a7cdfb26b75";
+    var url = "Replace with your PREDICTION_ENDPOINT";
+    var predictionKey = "Replace with your prediction_key";
     
     var fs = require("fs");
     var _ = require('underscore');
