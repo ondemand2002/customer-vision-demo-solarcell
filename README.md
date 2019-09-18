@@ -1,6 +1,5 @@
 # customer-vision-demo-solarcell
- customer-vision-demo-solarcell
-
+ 
  Please follow up the deployment steps of this link: https://github.com/microsoft/computerscience/blob/master/Labs/AI%20and%20Machine%20Learning/Custom%20Vision%20Service/Custom%20Vision%20Service.md
 
  Pay attention to modify ajax code as following example, adding headers content-type as application/octet-stream.
@@ -34,3 +33,10 @@
             alert(err);
         });
 	```
+
+ 1. When finished deployment, the demo app will start and display a window like this one:
+
+	![SolarCell Inspection Demo app](resources/app-startup.png)
+
+    _SolarCell Inspection Demo app_ 
+    
