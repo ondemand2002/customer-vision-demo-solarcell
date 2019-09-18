@@ -1,0 +1,26 @@
+<!DOCTYPE html />
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>SolarCell</title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="predict.js"></script>
+</head>
+
+<body>
+    <form>
+        <img src="assets/images/header.png"/>
+        <h1>Welcome to <strong>SolarCell-Inspection Demo App</strong></h1>
+        <div>Use the <a target="_new" href="https://azure.microsoft.com/services/cognitive-services/custom-vision-service/">Custom Vision Service</a> to identify failed Solar cell.</div>
+        <div class="whitespace"></div>
+        <input type="button" id="select_button" value="Upload Image" />
+        <div id="previewImage"></div>
+        <div id="analysisResults"></div>
+    </form>
+</body>
+
+</html>
