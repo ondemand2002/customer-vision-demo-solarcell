@@ -1,0 +1,16 @@
+{
+	"name": "SQL script 2",
+	"properties": {
+		"content": {
+			"query": "SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://contosolakewdq.dfs.core.windows.net/users/NYCTaxi/PassengerCountStats.parquet/part-00000-0acf2339-838a-4d01-8c1a-8e4b93b81987-c000.snappy.parquet',\n        FORMAT='PARQUET'\n    ) AS [r];\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "master",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,49 @@
+{
+	"name": "Notebook 2",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "Spark1",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2
+		},
+		"metadata": {
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/c137091b-be5f-4ae4-aad5-12b3b6e4da78/resourceGroups/synapse-rg/providers/Microsoft.Synapse/workspaces/synapsewswdq/bigDataPools/Spark1",
+				"name": "Spark1",
+				"type": "Spark",
+				"endpoint": "https://synapsewswdq.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/Spark1",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"%%pyspark\r\n",
+					"data_path = spark.read.load('abfss://users@contosolakewdq.dfs.core.windows.net/NYCTaxi/PassengerCountStats.parquet/part-00000-0acf2339-838a-4d01-8c1a-8e4b93b81987-c000.snappy.parquet', format='parquet')\r\n",
+					"data_path.show(100)"
+				],
+				"attachments": null,
+				"execution_count": 4
+			}
+		]
+	}
+}

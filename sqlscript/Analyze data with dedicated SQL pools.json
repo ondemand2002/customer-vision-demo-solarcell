@@ -1,0 +1,17 @@
+{
+	"name": "Analyze data with dedicated SQL pools",
+	"properties": {
+		"content": {
+			"query": "-- Load the NYC Taxi Data into SQLPOOL1\n-- This script will finish in less than 60 seconds. It loads 2 million rows of NYC Taxi data into a table called dbo.NYCTaxiTripSmall.\n\nIF NOT EXISTS (SELECT * FROM sys.objects O JOIN sys.schemas S ON O.schema_id = S.schema_id WHERE O.NAME = 'NYCTaxiTripSmall' AND O.TYPE = 'U' AND S.NAME = 'dbo')\n CREATE TABLE dbo.NYCTaxiTripSmall\n \t(\n \t [DateID] int,\n \t [MedallionID] int,\n \t [HackneyLicenseID] int,\n \t [PickupTimeID] int,\n \t [DropoffTimeID] int,\n \t [PickupGeographyID] int,\n \t [DropoffGeographyID] int,\n \t [PickupLatitude] float,\n \t [PickupLongitude] float,\n \t [PickupLatLong] nvarchar(4000),\n \t [DropoffLatitude] float,\n \t [DropoffLongitude] float,\n \t [DropoffLatLong] nvarchar(4000),\n \t [PassengerCount] int,\n \t [TripDurationSeconds] int,\n \t [TripDistanceMiles] float,\n \t [PaymentType] nvarchar(4000),\n \t [FareAmount] numeric(19,4),\n \t [SurchargeAmount] numeric(19,4),\n \t [TaxAmount] numeric(19,4),\n \t [TipAmount] numeric(19,4),\n \t [TollsAmount] numeric(19,4),\n \t [TotalAmount] numeric(19,4)\n \t)\n WITH\n \t(\n \tDISTRIBUTION = ROUND_ROBIN,\n \t CLUSTERED COLUMNSTORE INDEX\n \t -- HEAP\n \t)\n GO\n\n COPY INTO dbo.NYCTaxiTripSmall\n (DateID 1, MedallionID 2, HackneyLicenseID 3, PickupTimeID 4, DropoffTimeID 5,\n PickupGeographyID 6, DropoffGeographyID 7, PickupLatitude 8, PickupLongitude 9, \n PickupLatLong 10, DropoffLatitude 11, DropoffLongitude 12, DropoffLatLong 13, \n PassengerCount 14, TripDurationSeconds 15, TripDistanceMiles 16, PaymentType 17, \n FareAmount 18, SurchargeAmount 19, TaxAmount 20, TipAmount 21, TollsAmount 22, \n TotalAmount 23)\n FROM 'https://contosolakewdq.dfs.core.windows.net/users/NYCTripSmall.parquet'\n WITH\n (\n \tFILE_TYPE = 'PARQUET'\n \t,MAXERRORS = 0\n \t,IDENTITY_INSERT = 'OFF'\n )\n\n -- Explore the NYC Taxi data in the dedicated SQL pool\n SELECT PassengerCount,\n      SUM(TripDistanceMiles) as SumTripDistance,\n      AVG(TripDistanceMiles) as AvgTripDistance\nFROM  dbo.NYCTaxiTripSmall\nWHERE TripDistanceMiles > 0 AND PassengerCount > 0\nGROUP BY PassengerCount\nORDER BY PassengerCount;\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "SQLDB1",
+				"databaseName": "SQLDB1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

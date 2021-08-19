@@ -1,0 +1,17 @@
+{
+	"name": "Analyze data with a serverless SQL pool",
+	"properties": {
+		"content": {
+			"query": "-- Analyze NYC Taxi data with a serverless SQL pool\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://contosolakewdq.dfs.core.windows.net/users/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS [result]\n\n--Create data exploration database\n--1.Create a separate database to use these objects. Custom database objects, cannot be created in the master database.\n    CREATE DATABASE DataExplorationDB \n                COLLATE Latin1_General_100_BIN2_UTF8\n\n--2.Switch to DataExplorationDB where you can create utility objects such as credentials and data sources.\n\nCREATE EXTERNAL DATA SOURCE ContosoLake\nWITH ( LOCATION = 'https://contosolakewdq.dfs.core.windows.net')\n\n--Optionally, create a login for a user in DataExplorationDB that will access external data:\n\nCREATE LOGIN data_explorer WITH PASSWORD = 'My Very Strong Password 1234!';\n\n--Create a database user in DataExplorationDB for the login and grant the ADMINISTER DATABASE BULK OPERATIONS permission.\nCREATE USER data_explorer FOR LOGIN data_explorer;\nGO\nGRANT ADMINISTER DATABASE BULK OPERATIONS TO data_explorer;\nGO\n\n--Explore the content of the file using the relative path and the data source:\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n            BULK '/users/NYCTripSmall.parquet',\n            DATA_SOURCE = 'ContosoLake',\n            FORMAT='PARQUET'\n    ) AS [result]\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "DataExplorationDB"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
